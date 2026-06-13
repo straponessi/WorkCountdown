@@ -1,0 +1,174 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+    <Style x:Key="HeaderBtn" TargetType="Button">
+        <Setter Property="Width"      Value="30"/>
+        <Setter Property="Height"     Value="30"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize"   Value="12"/>
+        <Setter Property="Cursor"     Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Bd" Background="Transparent" CornerRadius="4">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="#22FFFFFF"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="#44FFFFFF"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="HeaderBtnClose" TargetType="Button" BasedOn="{StaticResource HeaderBtn}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="#FF6B6B"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+    <Style x:Key="BtnPrimary" TargetType="Button">
+        <Setter Property="Background"  Value="#7C6AFF"/>
+        <Setter Property="Foreground"  Value="White"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="FontFamily"  Value="Segoe UI"/>
+        <Setter Property="FontSize"    Value="12"/>
+        <Setter Property="Padding"     Value="16,7"/>
+        <Setter Property="Cursor"      Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                            CornerRadius="6" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="#9A8BFF"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="#5A4ADF"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="BtnSecondary" TargetType="Button">
+        <Setter Property="Background"  Value="#22FFFFFF"/>
+        <Setter Property="Foreground"  Value="#9090C0"/>
+        <Setter Property="BorderBrush" Value="#2A2A4A"/>
+        <Setter Property="FontFamily"  Value="Segoe UI"/>
+        <Setter Property="FontSize"    Value="12"/>
+        <Setter Property="Padding"     Value="16,7"/>
+        <Setter Property="Cursor"      Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="1" CornerRadius="6"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="#33FFFFFF"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="DarkTextBox" TargetType="TextBox">
+        <Setter Property="Background"              Value="#1A1A2E"/>
+        <Setter Property="Foreground"              Value="#DDEEFF"/>
+        <Setter Property="CaretBrush"              Value="#7C6AFF"/>
+        <Setter Property="BorderBrush"             Value="#2A2A4A"/>
+        <Setter Property="BorderThickness"         Value="1"/>
+        <Setter Property="FontFamily"              Value="Consolas"/>
+        <Setter Property="FontSize"                Value="13"/>
+        <Setter Property="Padding"                 Value="8,5"/>
+        <Setter Property="Height"                  Value="32"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5" x:Name="Bd">
+                        <ScrollViewer x:Name="PART_ContentHost"
+                                      Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="#7C6AFF"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="DarkCombo" TargetType="ComboBox">
+        <Setter Property="Background"  Value="#1A1A2E"/>
+        <Setter Property="Foreground"  Value="#DDEEFF"/>
+        <Setter Property="BorderBrush" Value="#2A2A4A"/>
+        <Setter Property="FontFamily"  Value="Segoe UI"/>
+        <Setter Property="FontSize"    Value="12"/>
+        <Setter Property="Height"      Value="32"/>
+        <Setter Property="Padding"     Value="8,0"/>
+    </Style>
+
+
+    <Style x:Key="DarkCheck" TargetType="CheckBox">
+        <Setter Property="Foreground" Value="#9090C0"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize"   Value="12"/>
+        <Setter Property="Cursor"     Value="Hand"/>
+        <Setter Property="Margin"     Value="0,4"/>
+    </Style>
+
+
+    <Style x:Key="DarkSlider" TargetType="Slider">
+        <Setter Property="Foreground" Value="#7C6AFF"/>
+        <Setter Property="Height"     Value="20"/>
+    </Style>
+
+
+    <Style x:Key="SectionLabel" TargetType="TextBlock">
+        <Setter Property="Foreground"  Value="#606090"/>
+        <Setter Property="FontFamily"  Value="Segoe UI"/>
+        <Setter Property="FontSize"    Value="10"/>
+        <Setter Property="FontWeight"  Value="SemiBold"/>
+        <Setter Property="Margin"      Value="0,14,0,6"/>
+        <Setter Property="TextTransform" Value="Uppercase"/>
+    </Style>
+
+    <Style x:Key="FieldLabel" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#8080B0"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize"   Value="11"/>
+        <Setter Property="Margin"     Value="0,0,0,4"/>
+    </Style>
+
+</ResourceDictionary>

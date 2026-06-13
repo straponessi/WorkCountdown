@@ -1,0 +1,81 @@
+﻿<Window x:Class="WorkCountdown.Windows.MinimalWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStyle="None" AllowsTransparency="True"
+        Background="Transparent" ResizeMode="NoResize"
+        Topmost="False" ShowInTaskbar="True"
+        Title="WorkCountdown" SizeToContent="WidthAndHeight">
+
+    <Grid x:Name="RootGrid">
+
+        <StackPanel x:Name="MainPanel" Margin="14"
+                    MouseLeftButtonDown="Panel_DragMove">
+
+            <TextBlock x:Name="TimerLabel"
+                       FontFamily="Segoe UI" FontWeight="Bold"
+                       FontSize="56" TextAlignment="Center">
+                <TextBlock.Foreground>
+                    <SolidColorBrush x:Name="TimerBrush" Color="#7C6AFF"/>
+                </TextBlock.Foreground>
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#000020" BlurRadius="14"
+                                      ShadowDepth="0" Opacity="0.9"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <Grid x:Name="PctPanel" Margin="0,4,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="44"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" Height="5" Margin="0,0,8,0">
+                    <Border Height="5" CornerRadius="3" Background="#22FFFFFF"/>
+                    <Border x:Name="MiniBarFill" Height="5" CornerRadius="3"
+                            HorizontalAlignment="Left" Width="0">
+                        <Border.Background>
+                            <SolidColorBrush x:Name="BarBrush" Color="#7C6AFF"/>
+                        </Border.Background>
+                    </Border>
+                </Grid>
+
+                <TextBlock x:Name="PctLabel" Grid.Column="1"
+                           FontFamily="Segoe UI" FontSize="11"
+                           TextAlignment="Right" VerticalAlignment="Center">
+                    <TextBlock.Foreground>
+                        <SolidColorBrush x:Name="PctBrush" Color="#7C6AFF"/>
+                    </TextBlock.Foreground>
+                    <TextBlock.Effect>
+                        <DropShadowEffect Color="#000020" BlurRadius="8"
+                                          ShadowDepth="0" Opacity="0.9"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+            </Grid>
+
+        </StackPanel>
+
+        <Thumb x:Name="ResizeGrip"
+               HorizontalAlignment="Right" VerticalAlignment="Bottom"
+               Margin="0,0,2,2"
+               DragDelta="ResizeGrip_DragDelta"
+               DragCompleted="ResizeGrip_DragCompleted"
+               Cursor="SizeNWSE" Width="14" Height="12">
+            <Thumb.Template>
+                <ControlTemplate TargetType="Thumb">
+                    <TextBlock Text="◢" FontSize="9" Foreground="#33FFFFFF"
+                               x:Name="GripText">
+                        <TextBlock.Effect>
+                            <DropShadowEffect Color="#000" BlurRadius="3"
+                                              ShadowDepth="1" Opacity="0.8"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="GripText" Property="Foreground" Value="#99FFFFFF"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Thumb.Template>
+        </Thumb>
+    </Grid>
+</Window>

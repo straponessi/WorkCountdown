@@ -1,0 +1,117 @@
+﻿<Window x:Class="WorkCountdown.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStyle="None" AllowsTransparency="True"
+        Background="Transparent" ResizeMode="NoResize"
+        Topmost="False" ShowInTaskbar="True"
+        Title="WorkCountdown" Width="310" SizeToContent="Height">
+
+    <Window.Resources>
+        <DropShadowEffect x:Key="WidgetShadow"
+                          Color="#000000" BlurRadius="20"
+                          ShadowDepth="4" Opacity="0.6"/>
+
+        <Storyboard x:Key="TimerPulse" RepeatBehavior="Forever">
+            <ColorAnimation Storyboard.TargetName="TimerBrush"
+                            Storyboard.TargetProperty="Color"
+                            AutoReverse="True" Duration="0:0:0.8"/>
+        </Storyboard>
+    </Window.Resources>
+
+    <Border x:Name="RootBorder" CornerRadius="10" Margin="10"
+            Effect="{StaticResource WidgetShadow}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="34"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="14"/>
+            </Grid.RowDefinitions>
+
+            <Border x:Name="HeaderBorder" Grid.Row="0"
+                    CornerRadius="10,10,0,0"
+                    MouseLeftButtonDown="Header_DragMove">
+                <Grid>
+                    <TextBlock Text="⏱  WorkCountdown"
+                               Foreground="{Binding Source={x:Reference DimBrushRef}, Path=Color,
+                                            Converter={x:Null}}"
+                               x:Name="AppTitleLabel"
+                               FontFamily="Segoe UI" FontSize="11" FontWeight="SemiBold"
+                               VerticalAlignment="Center" Margin="12,0,0,0"/>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button x:Name="SettingsBtn" Content="⚙"
+                                Click="Settings_Click"
+                                ToolTip="Настройки"
+                                Style="{StaticResource HeaderBtn}"/>
+                        <Button x:Name="CloseBtn" Content="✕"
+                                Click="Close_Click"
+                                ToolTip="Закрыть"
+                                Style="{StaticResource HeaderBtnClose}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Border x:Name="BodyBorder" Grid.Row="1">
+                <StackPanel Margin="16,10,16,6">
+
+                    <TextBlock x:Name="DayLabel"
+                               Text="{Binding DayLabel}"
+                               FontFamily="Segoe UI" FontSize="11" FontWeight="SemiBold"
+                               Margin="0,0,0,6"/>
+
+                    <Grid Margin="0,0,0,2">
+                        <Border x:Name="BarBg" Height="6" CornerRadius="3"/>
+                        <Border x:Name="BarFill" Height="6" CornerRadius="3"
+                                HorizontalAlignment="Left" Width="0">
+                            <Border.Background>
+                                <SolidColorBrush x:Name="BarBrush" Color="#7C6AFF"/>
+                            </Border.Background>
+                        </Border>
+                    </Grid>
+
+                    <TextBlock x:Name="PctLabel"
+                               Text="{Binding PctText}"
+                               FontFamily="Segoe UI" FontSize="9"
+                               HorizontalAlignment="Right" Margin="0,0,0,4"/>
+
+                    <TextBlock x:Name="TimerLabel"
+                               Text="{Binding TimerText}"
+                               FontFamily="Segoe UI" FontWeight="Bold"
+                               FontSize="44" TextAlignment="Center"
+                               Margin="0,6,0,4">
+                        <TextBlock.Foreground>
+                            <SolidColorBrush x:Name="TimerBrush" Color="#7C6AFF"/>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+
+                    <TextBlock x:Name="StatusLabel"
+                               Text="{Binding StatusText}"
+                               FontFamily="Segoe UI" FontSize="10"
+                               TextAlignment="Center" Margin="0,0,0,2"/>
+                </StackPanel>
+            </Border>
+
+            <Border x:Name="GripBorder" Grid.Row="2" CornerRadius="0,0,10,10">
+                <Thumb x:Name="ResizeGrip"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Bottom"
+                       Margin="0,0,4,2"
+                       DragDelta="ResizeGrip_DragDelta"
+                       DragCompleted="ResizeGrip_DragCompleted"
+                       Cursor="SizeNWSE" Width="14" Height="12">
+                    <Thumb.Template>
+                        <ControlTemplate TargetType="Thumb">
+                            <TextBlock Text="◢" FontSize="10"
+                                       x:Name="GripText" Foreground="#2A2A4A"/>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="GripText" Property="Foreground" Value="#606090"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Thumb.Template>
+                </Thumb>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

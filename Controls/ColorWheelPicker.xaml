@@ -1,0 +1,114 @@
+﻿<UserControl x:Class="WorkCountdown.Controls.ColorWheelPicker"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <UserControl.Resources>
+        <Style TargetType="TextBox" x:Key="HexBox">
+            <Setter Property="Background"   Value="#1A1A2E"/>
+            <Setter Property="Foreground"   Value="#DDEEFF"/>
+            <Setter Property="BorderBrush"  Value="#2A2A4A"/>
+            <Setter Property="CaretBrush"   Value="#7C6AFF"/>
+            <Setter Property="FontFamily"   Value="Consolas"/>
+            <Setter Property="FontSize"     Value="13"/>
+            <Setter Property="Padding"      Value="6,4"/>
+            <Setter Property="Height"       Value="30"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Border Background="#111120" CornerRadius="10" Padding="18">
+        <StackPanel>
+
+            <TextBlock x:Name="TitleLabel" Text="Выбор цвета"
+                       Foreground="#9090C0" FontFamily="Segoe UI" FontSize="12"
+                       Margin="0,0,0,14" HorizontalAlignment="Center"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                <Grid Width="200" Height="200" Margin="0,0,16,0">
+                    <Image x:Name="WheelImage" Stretch="Fill"
+                           MouseLeftButtonDown="Wheel_MouseDown"
+                           MouseMove="Wheel_MouseMove"
+                           MouseLeftButtonUp="Wheel_MouseUp"
+                           Cursor="Crosshair" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    <Ellipse x:Name="HueIndicator"
+                             Width="16" Height="16"
+                             Stroke="White" StrokeThickness="2.5"
+                             HorizontalAlignment="Left" VerticalAlignment="Top"
+                             IsHitTestVisible="False"
+                             Effect="{DynamicResource IndicatorShadow}"/>
+                </Grid>
+
+                <Grid Width="160" Height="160" ClipToBounds="True"
+                      MouseLeftButtonDown="SV_MouseDown"
+                      MouseMove="SV_MouseMove"
+                      MouseLeftButtonUp="SV_MouseUp"
+                      Cursor="Crosshair">
+
+                    <Rectangle x:Name="SvHueRect">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="White" Offset="0"/>
+                                <GradientStop x:Name="HueGradientStop" Color="#7C6AFF" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                    <Rectangle>
+                        <Rectangle.Fill>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="Transparent" Offset="0"/>
+                                <GradientStop Color="Black" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                    <Rectangle Stroke="#2A2A4A" StrokeThickness="1" IsHitTestVisible="False"/>
+
+                    <Ellipse x:Name="SvIndicator"
+                             Width="14" Height="14"
+                             Stroke="White" StrokeThickness="2"
+                             HorizontalAlignment="Left" VerticalAlignment="Top"
+                             IsHitTestVisible="False"/>
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,16,0,0"
+                        HorizontalAlignment="Center">
+
+                <Border Width="48" Height="36" CornerRadius="6" Margin="0,0,12,0">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#000000" BlurRadius="8" Opacity="0.5" ShadowDepth="0"/>
+                    </Border.Effect>
+                    <Rectangle x:Name="PreviewRect" RadiusX="6" RadiusY="6">
+                        <Rectangle.Fill>
+                            <SolidColorBrush x:Name="PreviewBrush" Color="#7C6AFF"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Border>
+
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="HEX" Foreground="#606090" FontSize="11"
+                                   VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBox x:Name="HexBox" Style="{StaticResource HexBox}"
+                                 Width="90" MaxLength="7"
+                                 TextChanged="HexBox_TextChanged"
+                                 LostFocus="HexBox_LostFocus"/>
+                    </StackPanel>
+                    <TextBlock x:Name="RgbLabel" Foreground="#606090" FontSize="10"
+                               FontFamily="Consolas" Margin="0,4,0,0"/>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,18,0,0">
+                <Button x:Name="CancelBtn" Content="✖  Отмена"
+                        Click="Cancel_Click" Margin="0,0,8,0"
+                        Style="{DynamicResource BtnSecondary}"/>
+                <Button x:Name="ApplyBtn" Content="✔  Применить"
+                        Click="Apply_Click"
+                        Style="{DynamicResource BtnPrimary}"/>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

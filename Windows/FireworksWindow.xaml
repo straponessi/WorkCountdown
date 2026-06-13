@@ -1,0 +1,52 @@
+﻿<Window x:Class="WorkCountdown.Windows.FireworksWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStyle="None" AllowsTransparency="True"
+        Background="#DD000000" ResizeMode="NoResize"
+        Topmost="True" ShowInTaskbar="False"
+        Title="Fireworks">
+
+    <Grid>
+        <Canvas x:Name="ParticleCanvas"
+                MouseLeftButtonDown="Canvas_Click"
+                MouseRightButtonDown="Canvas_Click"
+                Cursor="Hand"/>
+
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"
+                    IsHitTestVisible="False">
+
+            <TextBlock Text="🎉  СВОБОДА!  🎉"
+                       FontFamily="Segoe UI" FontSize="72" FontWeight="Bold"
+                       TextAlignment="Center" Foreground="#40000000"
+                       Margin="4,4,0,0" RenderTransformOrigin="0.5,0.5">
+                <TextBlock.RenderTransform>
+                    <TranslateTransform X="3" Y="3"/>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+
+            <TextBlock Text="🎉  СВОБОДА!  🎉"
+                       FontFamily="Segoe UI" FontSize="72" FontWeight="Bold"
+                       TextAlignment="Center" Foreground="#FFD93D"
+                       Margin="-4,-76,0,0">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FF8C00" BlurRadius="20"
+                                      ShadowDepth="0" Opacity="0.7"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <TextBlock Text="Рабочий день окончен!"
+                       FontFamily="Segoe UI" FontSize="30"
+                       TextAlignment="Center" Foreground="White" Margin="0,8,0,0">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#000020" BlurRadius="10"
+                                      ShadowDepth="0" Opacity="0.8"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <TextBlock Text="[ клик мышью или Esc — закрыть ]"
+                       FontFamily="Segoe UI" FontSize="13"
+                       TextAlignment="Center" Foreground="#445566"
+                       Margin="0,24,0,0"/>
+        </StackPanel>
+    </Grid>
+</Window>
