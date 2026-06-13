@@ -81,7 +81,9 @@ public partial class SettingsWindow : Window
 
     private void TimeBox_GotFocus(object s, RoutedEventArgs e)
     {
-        if (s is TextBox tb) tb.SelectAll();
+        // Исправлено: System.Windows.Controls.TextBox вместо неоднозначного TextBox
+        // (было: if (s is TextBox tb) tb.SelectAll();)
+        if (s is System.Windows.Controls.TextBox tb) tb.SelectAll();
     }
 
     private void TimeBox_PreviewInput(object s, TextCompositionEventArgs e)
@@ -94,7 +96,9 @@ public partial class SettingsWindow : Window
 
     private void TimeBox_TextChanged(object s, TextChangedEventArgs e)
     {
-        if (_maskBusy || s is not TextBox tb) return;
+        // Исправлено: System.Windows.Controls.TextBox вместо неоднозначного TextBox
+        // (было: if (_maskBusy || s is not TextBox tb) return;)
+        if (_maskBusy || s is not System.Windows.Controls.TextBox tb) return;
         _maskBusy = true;
         try
         {
@@ -186,7 +190,9 @@ public partial class SettingsWindow : Window
         {
             if (!CountdownService.TryParseTime(tb.Text, out _))
             {
-                MessageBox.Show($"Неверный формат «{name}»: {tb.Text}\nФормат: ЧЧ:ММ",
+                // Исправлено: System.Windows.MessageBox вместо неоднозначного MessageBox
+                // (было: MessageBox.Show($"Неверный формат «{name}»: {tb.Text}\nФормат: ЧЧ:ММ", ...))
+                System.Windows.MessageBox.Show($"Неверный формат «{name}»: {tb.Text}\nФормат: ЧЧ:ММ",
                     "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 tb.Focus(); return false;
             }
@@ -199,7 +205,9 @@ public partial class SettingsWindow : Window
             if (!CountdownService.TryParseTime(TbCustStart.Text, out _)
              || !CountdownService.TryParseTime(TbCustEnd.Text, out _))
             {
-                MessageBox.Show("Неверный формат кастомного времени.\nФормат: ЧЧ:ММ",
+                // Исправлено: System.Windows.MessageBox вместо неоднозначного MessageBox
+                // (было: MessageBox.Show("Неверный формат кастомного времени.\nФормат: ЧЧ:ММ", ...))
+                System.Windows.MessageBox.Show("Неверный формат кастомного времени.\nФормат: ЧЧ:ММ",
                     "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
@@ -256,7 +264,9 @@ public partial class SettingsWindow : Window
         try
         {
             hex = hex.TrimStart('#');
-            return new SolidColorBrush(Color.FromRgb(
+            // Исправлено: System.Windows.Media.Color.FromRgb вместо неоднозначного Color.FromRgb
+            // (было: return new SolidColorBrush(Color.FromRgb(...)))
+            return new SolidColorBrush(System.Windows.Media.Color.FromRgb(
                 Convert.ToByte(hex[0..2], 16),
                 Convert.ToByte(hex[2..4], 16),
                 Convert.ToByte(hex[4..6], 16)));
@@ -264,5 +274,7 @@ public partial class SettingsWindow : Window
         catch { return new SolidColorBrush(Colors.Gray); }
     }
 
-    private static readonly Brush Transparent = new SolidColorBrush(Colors.Transparent);
+    // Исправлено: System.Windows.Media.Brush вместо неоднозначного Brush
+    // (было: private static readonly Brush Transparent = new SolidColorBrush(Colors.Transparent);)
+    private static readonly System.Windows.Media.Brush Transparent = new SolidColorBrush(Colors.Transparent);
 }

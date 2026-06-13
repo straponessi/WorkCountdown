@@ -15,8 +15,12 @@ public class MainViewModel : ViewModelBase
     private string _statusText = "до конца рабочего дня";
     private string _pctText = "—";
     private double _progress = 0;
-    private Color _timerColor;
-    private Color _barColor;
+    // Исправлено: System.Windows.Media.Color вместо неоднозначного Color
+    // (было: private Color _timerColor;)
+    private System.Windows.Media.Color _timerColor;
+    // Исправлено: System.Windows.Media.Color вместо неоднозначного Color
+    // (было: private Color _barColor;)
+    private System.Windows.Media.Color _barColor;
     private WorkStatus _status = WorkStatus.Before;
     private bool _fireworksTriggered;
 
@@ -25,8 +29,12 @@ public class MainViewModel : ViewModelBase
     public string StatusText { get => _statusText; private set => Set(ref _statusText, value); }
     public string PctText { get => _pctText; private set => Set(ref _pctText, value); }
     public double Progress { get => _progress; private set => Set(ref _progress, value); }
-    public Color TimerColor { get => _timerColor; private set => Set(ref _timerColor, value); }
-    public Color BarColor { get => _barColor; private set => Set(ref _barColor, value); }
+    // Исправлено: System.Windows.Media.Color вместо неоднозначного Color
+    // (было: public Color TimerColor { ... })
+    public System.Windows.Media.Color TimerColor { get => _timerColor; private set => Set(ref _timerColor, value); }
+    // Исправлено: System.Windows.Media.Color вместо неоднозначного Color
+    // (было: public Color BarColor { ... })
+    public System.Windows.Media.Color BarColor { get => _barColor; private set => Set(ref _barColor, value); }
 
     /// <summary>true когда таймер достиг нуля — главное окно реагирует и запускает фейерверки.</summary>
     public event EventHandler? WorkDayDone;
@@ -104,17 +112,23 @@ public class MainViewModel : ViewModelBase
 
     public void ResetFireworks() => _fireworksTriggered = false;
 
-    private static Color ParseColor(string? hex)
+    // Исправлено: System.Windows.Media.Color вместо неоднозначного Color
+    // (было: private static Color ParseColor(string? hex))
+    private static System.Windows.Media.Color ParseColor(string? hex)
     {
-        if (string.IsNullOrEmpty(hex)) return Color.FromRgb(0x7C, 0x6A, 0xFF);
+        // Исправлено: System.Windows.Media.Color.FromRgb вместо неоднозначного Color.FromRgb
+        // (было: if (string.IsNullOrEmpty(hex)) return Color.FromRgb(0x7C, 0x6A, 0xFF);)
+        if (string.IsNullOrEmpty(hex)) return System.Windows.Media.Color.FromRgb(0x7C, 0x6A, 0xFF);
         try
         {
             hex = hex.TrimStart('#');
-            return Color.FromRgb(
+            // Исправлено: System.Windows.Media.Color.FromRgb вместо неоднозначного Color.FromRgb
+            // (было: return Color.FromRgb(...))
+            return System.Windows.Media.Color.FromRgb(
                 Convert.ToByte(hex[0..2], 16),
                 Convert.ToByte(hex[2..4], 16),
                 Convert.ToByte(hex[4..6], 16));
         }
-        catch { return Color.FromRgb(0x7C, 0x6A, 0xFF); }
+        catch { return System.Windows.Media.Color.FromRgb(0x7C, 0x6A, 0xFF); }
     }
 }

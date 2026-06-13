@@ -161,7 +161,8 @@
         <Setter Property="FontSize"    Value="10"/>
         <Setter Property="FontWeight"  Value="SemiBold"/>
         <Setter Property="Margin"      Value="0,14,0,6"/>
-        <Setter Property="TextTransform" Value="Uppercase"/>
+        <!-- ИСПРАВЛЕНО: TextTransform не поддерживается для TextBlock (WPF свойство только для TextBox/RichTextBox)
+             Закомментировано: <Setter Property="TextTransform" Value="Uppercase"/> -->
     </Style>
 
     <Style x:Key="FieldLabel" TargetType="TextBlock">

@@ -31,9 +31,10 @@
                     CornerRadius="10,10,0,0"
                     MouseLeftButtonDown="Header_DragMove">
                 <Grid>
+                    <!-- ИСПРАВЛЕНО: удален неверный Binding на DimBrushRef (ресурс не существует)
+                         Было: Foreground="{Binding Source={x:Reference DimBrushRef}, Path=Color, Converter={x:Null}}" -->
                     <TextBlock Text="⏱  WorkCountdown"
-                               Foreground="{Binding Source={x:Reference DimBrushRef}, Path=Color,
-                                            Converter={x:Null}}"
+                               Foreground="#606090"
                                x:Name="AppTitleLabel"
                                FontFamily="Segoe UI" FontSize="11" FontWeight="SemiBold"
                                VerticalAlignment="Center" Margin="12,0,0,0"/>

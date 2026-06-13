@@ -30,7 +30,7 @@
                            MouseLeftButtonDown="Wheel_MouseDown"
                            MouseMove="Wheel_MouseMove"
                            MouseLeftButtonUp="Wheel_MouseUp"
-                           Cursor="Crosshair" RenderOptions.BitmapScalingMode="HighQuality"/>
+                           Cursor="Cross" RenderOptions.BitmapScalingMode="HighQuality"/>
                     <Ellipse x:Name="HueIndicator"
                              Width="16" Height="16"
                              Stroke="White" StrokeThickness="2.5"
@@ -43,7 +43,7 @@
                       MouseLeftButtonDown="SV_MouseDown"
                       MouseMove="SV_MouseMove"
                       MouseLeftButtonUp="SV_MouseUp"
-                      Cursor="Crosshair">
+                      Cursor="Cross">
 
                     <Rectangle x:Name="SvHueRect">
                         <Rectangle.Fill>

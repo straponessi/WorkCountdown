@@ -67,7 +67,9 @@ public partial class FireworksWindow : Window
             byte r = ScaleChannel(p.BaseColor.R, p.Life);
             byte g = ScaleChannel(p.BaseColor.G, p.Life);
             byte b = ScaleChannel(p.BaseColor.B, p.Life);
-            var col = Color.FromArgb(alpha, r, g, b);
+            // Исправлено: System.Windows.Media.Color.FromArgb вместо неоднозначного Color.FromArgb
+            // (было: var col = Color.FromArgb(alpha, r, g, b);)
+            var col = System.Windows.Media.Color.FromArgb(alpha, r, g, b);
 
             double sz = p.Size * p.Life;
             var ell = new Ellipse
@@ -76,8 +78,12 @@ public partial class FireworksWindow : Window
                 Height = sz,
                 Fill = new SolidColorBrush(col),
             };
-            Canvas.SetLeft(ell, p.X - sz / 2);
-            Canvas.SetTop(ell, p.Y - sz / 2);
+            // Исправлено: System.Windows.Controls.Canvas вместо неоднозначного Canvas
+            // (было: Canvas.SetLeft(ell, p.X - sz / 2);)
+            System.Windows.Controls.Canvas.SetLeft(ell, p.X - sz / 2);
+            // Исправлено: System.Windows.Controls.Canvas вместо неоднозначного Canvas
+            // (было: Canvas.SetTop(ell, p.Y - sz / 2);)
+            System.Windows.Controls.Canvas.SetTop(ell, p.Y - sz / 2);
             ParticleCanvas.Children.Add(ell);
         }
 
@@ -94,7 +100,9 @@ public partial class FireworksWindow : Window
         double cy = _rng.NextDouble() * (h / 2 - 40) + 50;
 
         var hex = Colors[_rng.Next(Colors.Length)].TrimStart('#');
-        var col = Color.FromRgb(
+        // Исправлено: System.Windows.Media.Color.FromRgb вместо неоднозначного Color.FromRgb
+        // (было: var col = Color.FromRgb(...))
+        var col = System.Windows.Media.Color.FromRgb(
             Convert.ToByte(hex[0..2], 16),
             Convert.ToByte(hex[2..4], 16),
             Convert.ToByte(hex[4..6], 16));
@@ -134,6 +142,8 @@ public partial class FireworksWindow : Window
     {
         public double X, Y, Vx, Vy;
         public double Life, Decay, Size;
-        public Color BaseColor;
+        // Исправлено: System.Windows.Media.Color вместо неоднозначного Color
+        // (было: public Color BaseColor;)
+        public System.Windows.Media.Color BaseColor;
     }
 }
