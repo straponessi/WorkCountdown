@@ -106,7 +106,7 @@
         <Setter Property="FontFamily"              Value="Consolas"/>
         <Setter Property="FontSize"                Value="13"/>
         <Setter Property="Padding"                 Value="8,5"/>
-        <Setter Property="Height"                  Value="32"/>
+        <Setter Property="Height"                  Value="38"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Template">
             <Setter.Value>
