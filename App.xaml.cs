@@ -4,8 +4,6 @@ using WorkCountdown.Windows;
 
 namespace WorkCountdown;
 
-// Исправлено: System.Windows.Application вместо неоднозначного Application
-// (было: public partial class App : Application)
 public partial class App : System.Windows.Application
 {
     protected override void OnStartup(StartupEventArgs e)

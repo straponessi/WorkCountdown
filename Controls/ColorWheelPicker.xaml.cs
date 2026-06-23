@@ -9,8 +9,6 @@ namespace WorkCountdown.Controls;
 /// <summary>
 /// HSV colour picker: hue ring (WriteableBitmap) + SV square (gradient overlays).
 /// </summary>
-// Исправлено: System.Windows.Controls.UserControl вместо неоднозначного UserControl
-// (было: public partial class ColorWheelPicker : UserControl)
 public partial class ColorWheelPicker : System.Windows.Controls.UserControl
 {
 
@@ -25,8 +23,6 @@ public partial class ColorWheelPicker : System.Windows.Controls.UserControl
     }
 
     /// <summary>Событие: пользователь нажал «Применить».</summary>
-    // Исправлено: System.Windows.Media.Color вместо неоднозначного Color
-    // (было: public event EventHandler<Color>? ColorApplied;)
     public event EventHandler<System.Windows.Media.Color>? ColorApplied;
     /// <summary>Событие: пользователь нажал «Отмена».</summary>
     public event EventHandler? Cancelled;
@@ -51,8 +47,6 @@ public partial class ColorWheelPicker : System.Windows.Controls.UserControl
     }
 
     /// <summary>Установить начальный цвет.</summary>
-    // Исправлено: System.Windows.Media.Color вместо неоднозначного Color
-    // (было: public void SetColor(Color c))
     public void SetColor(System.Windows.Media.Color c)
     {
         RgbToHsv(c.R / 255.0, c.G / 255.0, c.B / 255.0,
@@ -121,8 +115,6 @@ public partial class ColorWheelPicker : System.Windows.Controls.UserControl
     {
         // Правый стоп градиента = чистый тон
         HsvToRgb(_hue, 1.0, 1.0, out double r, out double g, out double b);
-        // Исправлено: System.Windows.Media.Color.FromRgb вместо неоднозначного Color.FromRgb
-        // (было: HueGradientStop.Color = Color.FromRgb((byte)(r * 255), (byte)(g * 255), (byte)(b * 255));)
         HueGradientStop.Color = System.Windows.Media.Color.FromRgb((byte)(r * 255), (byte)(g * 255), (byte)(b * 255));
     }
 
@@ -139,8 +131,6 @@ public partial class ColorWheelPicker : System.Windows.Controls.UserControl
     private void UpdatePreview()
     {
         HsvToRgb(_hue, _sat, _val, out double r, out double g, out double b);
-        // Исправлено: System.Windows.Media.Color.FromRgb вместо неоднозначного Color.FromRgb
-        // (было: var c = Color.FromRgb((byte)(r * 255), (byte)(g * 255), (byte)(b * 255));)
         var c = System.Windows.Media.Color.FromRgb((byte)(r * 255), (byte)(g * 255), (byte)(b * 255));
         PreviewBrush.Color = c;
         RgbLabel.Text = $"R {c.R}   G {c.G}   B {c.B}";
@@ -150,13 +140,9 @@ public partial class ColorWheelPicker : System.Windows.Controls.UserControl
         _suppressHex = false;
     }
 
-    // Исправлено: System.Windows.Media.Color вместо неоднозначного Color
-    // (было: private Color CurrentColor())
     private System.Windows.Media.Color CurrentColor()
     {
         HsvToRgb(_hue, _sat, _val, out double r, out double g, out double b);
-        // Исправлено: System.Windows.Media.Color.FromRgb вместо неоднозначного Color.FromRgb
-        // (было: return Color.FromRgb((byte)(r * 255), (byte)(g * 255), (byte)(b * 255));)
         return System.Windows.Media.Color.FromRgb((byte)(r * 255), (byte)(g * 255), (byte)(b * 255));
     }
 
@@ -165,8 +151,6 @@ public partial class ColorWheelPicker : System.Windows.Controls.UserControl
     {
         _draggingWheel = true; WheelImage.CaptureMouse(); ApplyWheelHit(e.GetPosition(WheelImage));
     }
-    // Исправлено: System.Windows.Input.MouseEventArgs вместо неоднозначного MouseEventArgs
-    // (было: private void Wheel_MouseMove(object s, MouseEventArgs e))
     private void Wheel_MouseMove(object s, System.Windows.Input.MouseEventArgs e)
     {
         if (_draggingWheel) ApplyWheelHit(e.GetPosition(WheelImage));
@@ -176,8 +160,6 @@ public partial class ColorWheelPicker : System.Windows.Controls.UserControl
         _draggingWheel = false; WheelImage.ReleaseMouseCapture();
     }
 
-    // Исправлено: System.Windows.Point вместо неоднозначного Point
-    // (было: private void ApplyWheelHit(Point p))
     private void ApplyWheelHit(System.Windows.Point p)
     {
         double cx = WhlSize / 2.0, cy = WhlSize / 2.0;
@@ -197,8 +179,6 @@ public partial class ColorWheelPicker : System.Windows.Controls.UserControl
         ((UIElement)s).CaptureMouse();
         ApplySvHit(e.GetPosition((IInputElement)s));
     }
-    // Исправлено: System.Windows.Input.MouseEventArgs вместо неоднозначного MouseEventArgs
-    // (было: private void SV_MouseMove(object s, MouseEventArgs e))
     private void SV_MouseMove(object s, System.Windows.Input.MouseEventArgs e)
     {
         if (_draggingSv) ApplySvHit(e.GetPosition((IInputElement)s));
@@ -208,8 +188,6 @@ public partial class ColorWheelPicker : System.Windows.Controls.UserControl
         _draggingSv = false; ((UIElement)s).ReleaseMouseCapture();
     }
 
-    // Исправлено: System.Windows.Point вместо неоднозначного Point
-    // (было: private void ApplySvHit(Point p))
     private void ApplySvHit(System.Windows.Point p)
     {
         const double sz = 160;
@@ -284,20 +262,14 @@ public partial class ColorWheelPicker : System.Windows.Controls.UserControl
         if (h < 0) h += 1;
     }
 
-    // Исправлено: System.Windows.Media.Color вместо неоднозначного Color
-    // (было: public static Color HexToColor(string hex))
     public static System.Windows.Media.Color HexToColor(string hex)
     {
         hex = hex.TrimStart('#');
-        // Исправлено: System.Windows.Media.Color.FromRgb вместо неоднозначного Color.FromRgb
-        // (было: return Color.FromRgb(...))
         return System.Windows.Media.Color.FromRgb(
             Convert.ToByte(hex[0..2], 16),
             Convert.ToByte(hex[2..4], 16),
             Convert.ToByte(hex[4..6], 16));
     }
 
-    // Исправлено: System.Windows.Media.Color вместо неоднозначного Color
-    // (было: public static string ColorToHex(Color c) => ...)
     public static string ColorToHex(System.Windows.Media.Color c) => $"#{c.R:X2}{c.G:X2}{c.B:X2}";
 }

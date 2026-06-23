@@ -1,9 +1,4 @@
-﻿using System.IO;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using WorkCountdown.Models;
-
-namespace WorkCountdown.Services
+﻿namespace WorkCountdown.Services
 {
     public record MonitorRect(int X, int Y, int Width, int Height);
 

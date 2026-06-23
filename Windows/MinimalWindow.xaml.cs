@@ -49,8 +49,6 @@ public partial class MinimalWindow : Window
         var now = DateTime.Now;
 
         string text;
-        // Исправлено: System.Windows.Media.Color вместо неоднозначного Color
-        // (было: Color col;)
         System.Windows.Media.Color col;
         var accentC = HexColor(_cfg.EffectiveTimer);
         var warnC = HexColor(ThemeDefaults.Warn(_cfg.Theme));
@@ -70,7 +68,7 @@ public partial class MinimalWindow : Window
                     : accentC;
                 break;
 
-            default: // Done
+            default:
                 text = "00:00:00";
                 col = okC;
                 if (!_fwTriggered)
@@ -95,7 +93,7 @@ public partial class MinimalWindow : Window
 
     private void UpdateBar(double progress)
     {
-        var totalW = ActualWidth - 28 - 44 - 8 - 8;   // margin + pct column
+        var totalW = ActualWidth - 28 - 44 - 8 - 8;  
         if (totalW < 1) return;
         MiniBarFill.BeginAnimation(FrameworkElement.WidthProperty,
             new DoubleAnimation
@@ -106,8 +104,6 @@ public partial class MinimalWindow : Window
             });
     }
 
-    // Исправлено: System.Windows.Media.Color вместо неоднозначного Color
-    // (было: private static void AnimateColor(SolidColorBrush brush, Color to))
     private static void AnimateColor(SolidColorBrush brush, System.Windows.Media.Color to)
         => brush.BeginAnimation(SolidColorBrush.ColorProperty,
             new ColorAnimation { To = to, Duration = TimeSpan.FromMilliseconds(300) });
@@ -222,24 +218,16 @@ public partial class MinimalWindow : Window
         _cfg.PosX = Left; _cfg.PosY = Top;
         ConfigService.Save(_cfg);
         _timer.Stop();
-        // Исправлено: System.Windows.Application.Current вместо неоднозначного Application.Current
-        // (было: Application.Current.Shutdown();)
         System.Windows.Application.Current.Shutdown();
     }
 
 
-    // Исправлено: System.Windows.Media.Color вместо неоднозначного Color
-    // (было: private static Color HexColor(string? hex))
     private static System.Windows.Media.Color HexColor(string? hex)
     {
-        // Исправлено: System.Windows.Media.Color.FromRgb вместо неоднозначного Color.FromRgb
-        // (было: if (string.IsNullOrEmpty(hex)) return Color.FromRgb(0x7C, 0x6A, 0xFF);)
         if (string.IsNullOrEmpty(hex)) return System.Windows.Media.Color.FromRgb(0x7C, 0x6A, 0xFF);
         try
         {
             hex = hex.TrimStart('#');
-            // Исправлено: System.Windows.Media.Color.FromRgb вместо неоднозначного Color.FromRgb
-            // (было: return Color.FromRgb(...))
             return System.Windows.Media.Color.FromRgb(
                 Convert.ToByte(hex[0..2], 16),
                 Convert.ToByte(hex[2..4], 16),

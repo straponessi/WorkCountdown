@@ -6,7 +6,7 @@ namespace WorkCountdown.Models;
 public class CountdownState
 {
     public WorkStatus Status { get; set; }
-    public int Remaining { get; set; }       // Оставшиеся секунды
-    public double Progress { get; set; }     // 0.0 до 1.0
-    public DateTime EndTime { get; set; }    // Время окончания рабочего дня
+    public int Remaining { get; set; }       
+    public double Progress { get; set; }    
+    public DateTime EndTime { get; set; }   
 }

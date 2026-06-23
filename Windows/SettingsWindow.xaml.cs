@@ -40,18 +40,14 @@ public partial class SettingsWindow : Window
             TbCustEnd.Text = _cfg.CustomEnd ?? "";
         }
 
-        // Тема
         CbTheme.SelectedIndex = _cfg.Theme == "light" ? 1 : 0;
 
-        // Прозрачность
         OpacitySlider.Value = _cfg.Opacity;
         OpacityLabel.Text = $"{(int)(_cfg.Opacity * 100)}%";
 
-        // Цвета
         RefreshBgSwatch();
         RefreshTimerSwatch();
 
-        // Чекбоксы
         ChkAlwaysOnTop.IsChecked = _cfg.AlwaysOnTop;
         ChkMinimalist.IsChecked = _cfg.Minimalist;
         ChkMiniPct.IsChecked = _cfg.MiniShowPct;
@@ -81,14 +77,11 @@ public partial class SettingsWindow : Window
 
     private void TimeBox_GotFocus(object s, RoutedEventArgs e)
     {
-        // Исправлено: System.Windows.Controls.TextBox вместо неоднозначного TextBox
-        // (было: if (s is TextBox tb) tb.SelectAll();)
         if (s is System.Windows.Controls.TextBox tb) tb.SelectAll();
     }
 
     private void TimeBox_PreviewInput(object s, TextCompositionEventArgs e)
     {
-        // Разрешаем только цифры
         e.Handled = !char.IsDigit(e.Text, 0);
     }
 
@@ -96,8 +89,6 @@ public partial class SettingsWindow : Window
 
     private void TimeBox_TextChanged(object s, TextChangedEventArgs e)
     {
-        // Исправлено: System.Windows.Controls.TextBox вместо неоднозначного TextBox
-        // (было: if (_maskBusy || s is not TextBox tb) return;)
         if (_maskBusy || s is not System.Windows.Controls.TextBox tb) return;
         _maskBusy = true;
         try
@@ -122,7 +113,6 @@ public partial class SettingsWindow : Window
 
     private void CbTheme_SelectionChanged(object s, SelectionChangedEventArgs e)
     {
-        // Обновляем свотчи при смене темы, если цвет не кастомный
         if (_colorBg == null) RefreshBgSwatch();
         if (_colorTimer == null) RefreshTimerSwatch();
     }
@@ -190,8 +180,6 @@ public partial class SettingsWindow : Window
         {
             if (!CountdownService.TryParseTime(tb.Text, out _))
             {
-                // Исправлено: System.Windows.MessageBox вместо неоднозначного MessageBox
-                // (было: MessageBox.Show($"Неверный формат «{name}»: {tb.Text}\nФормат: ЧЧ:ММ", ...))
                 System.Windows.MessageBox.Show($"Неверный формат «{name}»: {tb.Text}\nФормат: ЧЧ:ММ",
                     "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 tb.Focus(); return false;
@@ -205,8 +193,6 @@ public partial class SettingsWindow : Window
             if (!CountdownService.TryParseTime(TbCustStart.Text, out _)
              || !CountdownService.TryParseTime(TbCustEnd.Text, out _))
             {
-                // Исправлено: System.Windows.MessageBox вместо неоднозначного MessageBox
-                // (было: MessageBox.Show("Неверный формат кастомного времени.\nФормат: ЧЧ:ММ", ...))
                 System.Windows.MessageBox.Show("Неверный формат кастомного времени.\nФормат: ЧЧ:ММ",
                     "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
@@ -264,8 +250,6 @@ public partial class SettingsWindow : Window
         try
         {
             hex = hex.TrimStart('#');
-            // Исправлено: System.Windows.Media.Color.FromRgb вместо неоднозначного Color.FromRgb
-            // (было: return new SolidColorBrush(Color.FromRgb(...)))
             return new SolidColorBrush(System.Windows.Media.Color.FromRgb(
                 Convert.ToByte(hex[0..2], 16),
                 Convert.ToByte(hex[2..4], 16),
@@ -274,7 +258,5 @@ public partial class SettingsWindow : Window
         catch { return new SolidColorBrush(Colors.Gray); }
     }
 
-    // Исправлено: System.Windows.Media.Brush вместо неоднозначного Brush
-    // (было: private static readonly Brush Transparent = new SolidColorBrush(Colors.Transparent);)
     private static readonly System.Windows.Media.Brush Transparent = new SolidColorBrush(Colors.Transparent);
 }

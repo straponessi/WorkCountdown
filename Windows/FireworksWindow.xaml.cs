@@ -13,7 +13,7 @@ public partial class FireworksWindow : Window
     private readonly List<Particle> _particles = new();
 
     private const double Gravity = 0.22;
-    private const double Duration = 9.0;   // секунд
+    private const double Duration = 9.0;  
     private readonly DateTime _start = DateTime.Now;
 
     private static readonly string[] Colors =
@@ -36,7 +36,6 @@ public partial class FireworksWindow : Window
         _timer.Tick += Frame;
         _timer.Start();
 
-        // Первый залп
         SpawnBurst();
     }
 
@@ -67,8 +66,6 @@ public partial class FireworksWindow : Window
             byte r = ScaleChannel(p.BaseColor.R, p.Life);
             byte g = ScaleChannel(p.BaseColor.G, p.Life);
             byte b = ScaleChannel(p.BaseColor.B, p.Life);
-            // Исправлено: System.Windows.Media.Color.FromArgb вместо неоднозначного Color.FromArgb
-            // (было: var col = Color.FromArgb(alpha, r, g, b);)
             var col = System.Windows.Media.Color.FromArgb(alpha, r, g, b);
 
             double sz = p.Size * p.Life;
@@ -78,11 +75,7 @@ public partial class FireworksWindow : Window
                 Height = sz,
                 Fill = new SolidColorBrush(col),
             };
-            // Исправлено: System.Windows.Controls.Canvas вместо неоднозначного Canvas
-            // (было: Canvas.SetLeft(ell, p.X - sz / 2);)
             System.Windows.Controls.Canvas.SetLeft(ell, p.X - sz / 2);
-            // Исправлено: System.Windows.Controls.Canvas вместо неоднозначного Canvas
-            // (было: Canvas.SetTop(ell, p.Y - sz / 2);)
             System.Windows.Controls.Canvas.SetTop(ell, p.Y - sz / 2);
             ParticleCanvas.Children.Add(ell);
         }
@@ -100,8 +93,6 @@ public partial class FireworksWindow : Window
         double cy = _rng.NextDouble() * (h / 2 - 40) + 50;
 
         var hex = Colors[_rng.Next(Colors.Length)].TrimStart('#');
-        // Исправлено: System.Windows.Media.Color.FromRgb вместо неоднозначного Color.FromRgb
-        // (было: var col = Color.FromRgb(...))
         var col = System.Windows.Media.Color.FromRgb(
             Convert.ToByte(hex[0..2], 16),
             Convert.ToByte(hex[2..4], 16),
@@ -142,8 +133,6 @@ public partial class FireworksWindow : Window
     {
         public double X, Y, Vx, Vy;
         public double Life, Decay, Size;
-        // Исправлено: System.Windows.Media.Color вместо неоднозначного Color
-        // (было: public Color BaseColor;)
         public System.Windows.Media.Color BaseColor;
     }
 }

@@ -25,10 +25,9 @@ namespace WorkCountdown.Models
         public bool MiniShowPct { get; set; } = true;
         public bool Autostart { get; set; } = false;
 
-        public string? ColorBg { get; set; }   // hex или null → тема
-        public string? ColorTimer { get; set; }   // hex или null → тема
+        public string? ColorBg { get; set; }   
+        public string? ColorTimer { get; set; }  
 
-        // ── Готовые значения цветов (пересчитываются из ColorBg/ColorTimer) ──
         [JsonIgnore] public string EffectiveBg => ColorBg ?? ThemeDefaults.Bg(Theme);
         [JsonIgnore] public string EffectiveTimer => ColorTimer ?? ThemeDefaults.Accent(Theme);
     }

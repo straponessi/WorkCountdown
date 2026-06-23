@@ -38,7 +38,7 @@ public partial class MainWindow : Window
         _timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
         _timer.Tick += (_, _) => Tick();
         _timer.Start();
-        Tick(); // немедленный первый тик
+        Tick();
     }
 
 
@@ -63,7 +63,7 @@ public partial class MainWindow : Window
 
     private void UpdateProgressBar()
     {
-        double totalW = BodyBorder.ActualWidth - 32; // margin 16*2
+        double totalW = BodyBorder.ActualWidth - 32; 
         if (totalW < 1) return;
         var anim = new DoubleAnimation
         {
@@ -95,11 +95,9 @@ public partial class MainWindow : Window
         TimerBrush.Color = HexColor(_cfg.EffectiveTimer);
         BarBrush.Color = HexColor(_cfg.EffectiveTimer);
 
-        // Кнопки хедера
         SettingsBtn.Foreground = dimBrush;
         CloseBtn.Foreground = dimBrush;
 
-        // Ширина
         Width = Math.Max(200, Math.Min(900, _cfg.WinW));
     }
 
@@ -114,16 +112,12 @@ public partial class MainWindow : Window
     private static SolidColorBrush Brush(string hex) =>
         new(HexColor(hex));
 
-    // Исправлено: использование System.Windows.Media.Color вместо неоднозначного Color
-    // (было: private static Color HexColor(string? hex))
     private static System.Windows.Media.Color HexColor(string? hex)
     {
         if (string.IsNullOrEmpty(hex)) return Colors.Transparent;
         try
         {
             hex = hex.TrimStart('#');
-            // Исправлено: System.Windows.Media.Color.FromRgb вместо Color.FromRgb
-            // (было: return Color.FromRgb(...))
             return System.Windows.Media.Color.FromRgb(
                 Convert.ToByte(hex[0..2], 16),
                 Convert.ToByte(hex[2..4], 16),
@@ -150,7 +144,6 @@ public partial class MainWindow : Window
         double newW = Math.Max(200, Math.Min(900, Width + e.HorizontalChange));
         Width = newW;
         _cfg.WinW = newW;
-        // Обновляем размер шрифта таймера
         TimerLabel.FontSize = Math.Clamp(newW / 7.0, 22, 72);
     }
 
@@ -228,8 +221,6 @@ public partial class MainWindow : Window
         _cfg.PosX = Left; _cfg.PosY = Top;
         ConfigService.Save(_cfg);
         _timer.Stop();
-        // Исправлено: System.Windows.Application.Current вместо неоднозначного Application.Current
-        // (было: Application.Current.Shutdown();)
         System.Windows.Application.Current.Shutdown();
     }
 

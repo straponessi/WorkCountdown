@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WorkCountdown.Models
+﻿namespace WorkCountdown.Models
 {
     /// <summary>Дефолтные цвета тем.</summary>
     public static class ThemeDefaults
